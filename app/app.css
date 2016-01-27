@@ -1,0 +1,34 @@
+html ,body{
+    height: 100%;
+    width:100%;
+}
+.view-frame{
+    height: 100%;
+}
+/* Autorizate page */
+.autorizate{
+    height: 100%
+}
+.autorizate .row{
+    height: 97%
+}
+.autorizate .valign-wrapper{
+    height: 100%;
+}
+.logo{
+    color: #2ebfcb;
+}
+.autorizationButton{
+    background: #2ebfcb;
+}
+.invalidFormAuth{
+    float: left;
+    color: #D43B3B;
+    margin-left: 43px;
+}
+.invalidFormAuth.passAuth{
+    display: none;
+}
+.validAuth{
+    display: none;
+}

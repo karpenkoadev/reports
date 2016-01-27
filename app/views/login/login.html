@@ -1,0 +1,26 @@
+<div class="container autorizate" >
+<div class="row">
+    <div class="valign-wrapper">
+        <div class="col s12 l12 m12">
+            <div class="logo center-align">
+                <h4>Гоу?</h4>
+            </div>
+            <form class="form-signin" name="signinForm" role="form">
+                <div class="input-field" ng-class="{ 'has-error' : signinForm.email.$invalid }">
+                    <i class="material-icons prefix">email</i>
+                    <input  ng-model='user.email' id="email" class="form-control" type="email" class="validate">
+                    <label for="email" data-error="wrong" data-success="right">Email</label>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons prefix">lock</i>
+                    <input ng-model='user.password' id="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+                <p style='float:left' id="invalidFormAuth" class="invalidFormAuth"></p>
+                <p style='float:left' class="invalidFormAuth validAuth" ng-show="!user.err">Authentication successful.</p>
+                <button ng-disabled="!user.email " ng-click='SignIn($event)' class="right autorizationButton waves-effect waves-light btn-large"><i class="material-icons left">input</i>button</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
