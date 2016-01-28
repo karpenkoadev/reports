@@ -5,39 +5,39 @@
         <div class="logo center-align">
           <h4>Привет {{nameUser}}, напиши свой отчет за день.</h4>
         </div>
-        <form class="form-signin" name="signinForm" role="form" novalidate ng-submit="AddReprot()">
+        <form class="form-signin" name="addRepForm" role="form" novalidate ng-submit="AddReprot()">
           <div class="col s6 l6 m6">
             <div class="input-field">
               <i class="material-icons prefix">today</i>
-              <input ng-model="reports1.datePik" id="datePik" type="text" class="datepicker">
+              <input ng-minlength="1" ng-model="reports1.datePik" id="datePik" name="datePik" type="text" class="datepicker">
               <label for="datePik">Дата</label>
             </div>
           </div>
           <div class="col s6 l6 m6">
             <div class="input-field">
               <i class="material-icons prefix">supervisor_account</i>
-              <input ng-model="reports1.countBild" id="counBid" type="text">
+              <input ng-minlength="1" ng-model="reports1.countBild" id="counBid" name="counBid" type="text">
               <label for="counBid">Количество бидов за день</label>
             </div>
           </div>
           <div class="col s12 l12 m12"><br></div>
           <div class="col s12 l12 m12">
             <div class="input-field" >
-              <select multiple ng-model="reports1.profiles" class="icons">
-                <option value="" disabled selected>Профили за которые писал</option>
-                <option value="Сердюк Александр" data-icon="img/alexSer.jpg" class="left circle">Сердюк Александр</option>
-                <option value="Карпенко Александр" data-icon="img/alexKarpen.jpg" class="left circle">Карпенко Александр</option>
-                <option value="Тимофей Малоштан" data-icon="img/timMalo.jpg" class="left circle">Тимофей Малоштан</option>
-                <option value="Данил Тивоненко" data-icon="img/danilTiv.jpg" class="left circle">Данил Тивоненко</option>
+              <select multiple ng-change="events.selectItem($event)" ng-model="reports1.profiles" name="profiles" class="icons">
+                <option  value="" disabled selected>Профили за которые писал</option>
+                <option  value="Сердюк Александр" data-icon="img/alexSer.jpg" class="left circle">Сердюк Александр</option>
+                <option  value="Карпенко Александр" data-icon="img/alexKarpen.jpg" class="left circle">Карпенко Александр</option>
+                <option  value="Тимофей Малоштан" data-icon="img/timMalo.jpg" class="left circle">Тимофей Малоштан</option>
+                <option  value="Данил Тивоненко" data-icon="img/danilTiv.jpg" class="left circle">Данил Тивоненко</option>
               </select>
-              <label>Images in select</label>
+              <label>Профили за которые писал</label>
             </div>
           </div>
           <div class="col s12 l12 m12"><br></div>
           <div class="col s12 l12 m12">
             <div class="input-field" >
               <i class="material-icons prefix">mode_edit</i>
-              <textarea ng-model="reports1.linkOnBid" id="icon_prefix2" class="materialize-textarea"></textarea>
+              <textarea ng-minlength="1" ng-model="reports1.linkOnBid" name="linkOnBid" id="icon_prefix2" class="materialize-textarea"></textarea>
               <label for="icon_prefix2">Ссылки на биды и на ответы если они были</label>
             </div>
           </div>
@@ -45,13 +45,13 @@
           <div class="col s12 l12 m12">
             <div class="input-field" >
               <i class="material-icons prefix">mode_edit</i>
-              <textarea ng-model="reports1.comments" id="icon_prefix2" class="materialize-textarea"></textarea>
+              <textarea ng-minlength="1" name="comments" ng-model="reports1.comments" id="icon_prefix3" class="materialize-textarea form-control"></textarea>
               <label for="icon_prefix2">Ваш комментарий</label>
             </div>
           </div>
+          <p style='float:left' class="invalidFormAuth " >Все поля объязательны</p>
           <p style='float:left' id="invalidFormAuth" class="invalidFormAuth"></p>
-          <p style='float:left' class="invalidFormAuth validAuth" >Authentication successful.</p>
-          <button class="right autorizationButton waves-effect waves-light btn-large"><i class="material-icons left">input</i>button</button>
+          <button class="right autorizationButton waves-effect waves-light btn-large" ng-disabled="!reports1.datePik || !reports1.countBild || !reports1.profiles || !reports1.linkOnBid || !reports1.comments"><i class="material-icons left">input</i>button</button>
         </form>
       </div>
     </div>

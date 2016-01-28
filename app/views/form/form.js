@@ -10,10 +10,15 @@ angular.module('myApp.formMod', ['ngRoute', 'firebase'])
 }])
 
 .controller('formCtrl', ["$scope", '$firebaseAuth', '$firebaseArray', function($scope, $firebaseAuth, $firebaseArray) {
-    var ref = new Firebase("https://reports1.firebaseio.com");
+    var ref = new Firebase("https://reports1.firebaseio.com/reports");
     var auth = $firebaseAuth(ref);
     var getAuth = auth.$getAuth(); // auth user info
     $scope.nameUser = 'Jhon';
+    $scope.events = {
+        selectItem : function($event){
+            console.log($event, $scope.reports1);
+        }
+    }
     $scope.AddReprot = function() {
         var addFrom = $firebaseArray(ref);
 
@@ -22,25 +27,12 @@ angular.module('myApp.formMod', ['ngRoute', 'firebase'])
         var profiles = $scope.reports1.profiles;
         var linkOnBid = $scope.reports1.linkOnBid;
         var comments = $scope.reports1.comments;
-
-        if (dates === "undefined") {
-            dates = 'Не заполненно'
-        } else if (countBild === "undefined") {
-            countBild = 'Не заполненно'
-        } else if (profiles === "undefined") {
-            profiles = 'Не заполненно'
-        } else if (linkOnBid === "undefined") {
-            linkOnBid = 'Не заполненно'
-        } else if (comments === "undefined") {
-            comments = 'Не заполненно'
-        }
+    console.log(dates + countBild + profiles + linkOnBid + comments);
 
 
-
-    console.log(dates + countBild + profiles + linkOnBid + comments)
-
-
-
+        setInterval(function(){
+            console.log($scope.reports1);
+        }, 1500);
 
 
 
@@ -57,10 +49,7 @@ angular.module('myApp.formMod', ['ngRoute', 'firebase'])
             console.log("Error:", error);
         });
 
-    }
-
-
-
+    };
 
     $(document).ready(function() {
     // init date picker
