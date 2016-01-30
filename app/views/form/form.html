@@ -1,9 +1,30 @@
-<div class="container autorizate" >
   <div class="row">
-    <div class="valign-wrapper">
+   <div class="col s12 l12 m12">
+     <nav>
+       <div class="nav-wrapper">
+         <a href="#!" class="brand-logo">Logo</a>
+         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+         <ul class="right hide-on-med-and-down">
+           <li><a ng-click="events.form()" href="javascript:void(0)">Админ панель</a></li>
+           <li><a ng-click="events.logout()" href="javascript:void(0)">Выйти</a></li>
+         </ul>
+         <ul class="side-nav" id="mobile-demo">
+           <li><a ng-click="events.form()" href="javascript:void(0)">Админ панель</a></li>
+           <li><a ng-click="events.logout()" href="javascript:void(0)">Выйти</a></li>
+         </ul>
+       </div>
+     </nav>
+   </div>
+    </div>
+
+
+  <div class="container autorizate" >
+  <div class="row">
+    <div class="col s12 l12 m12"></div>
+    <!--<div class="valign-wrapper">-->
       <div class="col s12 l12 m12">
         <div class="logo center-align">
-         <!-- <h4>Привет {{nameUser}}, напиши свой отчет за один бид.</h4>-->
+         <h4>Привет {{nameUser}}, напиши свой дневной отчет.</h4>
         </div>
         <form class="form-signin" name="addRepForm" role="form" novalidate ng-submit="AddReprot()">
           <div class="col s6 l6 m6">
@@ -23,12 +44,12 @@
           <div class="col s12 l12 m12"><br></div>
           <div class="col s12 l12 m12">
             <div class="input-field" >
-              <select multiple ng-change="events.selectItem($event)" ng-model="reports1.profiles" name="profiles" class="icons">
+              <select multiple  ng-model="reports1.profiles" name="profiles" class="icons">
                 <option  value="" disabled selected>Профили за которые писал</option>
-                <option  value="Сердюк Александр" data-icon="img/alexSer.jpg" class="left circle">Сердюк Александр</option>
-                <option  value="Карпенко Александр" data-icon="img/alexKarpen.jpg" class="left circle">Карпенко Александр</option>
-                <option  value="Тимофей Малоштан" data-icon="img/timMalo.jpg" class="left circle">Тимофей Малоштан</option>
-                <option  value="Данил Тивоненко" data-icon="img/danilTiv.jpg" class="left circle">Данил Тивоненко</option>
+                <option  value="Alexandr Serdiuk" data-icon="img/alexSer.jpg" class="left circle">Alexandr Serdiuk</option>
+                <option  value="Oleksandr Karpenko" data-icon="img/alexKarpen.jpg" class="left circle">Oleksandr Karpenko</option>
+                <option  value="Tim Maloshtan" data-icon="img/timMalo.jpg" class="left circle">Tim Maloshtan</option>
+                <option  value="Danil Tivonenko" data-icon="img/danilTiv.jpg" class="left circle">Danil Tivonenko</option>
               </select>
               <label>Профили за которые писал</label>
             </div>
@@ -54,6 +75,6 @@
           <button class="right autorizationButton waves-effect waves-light btn-large" ng-disabled="!reports1.datePik || !reports1.countBild || !reports1.profiles || !reports1.linkOnBid || !reports1.comments"><i class="material-icons left">input</i>button</button>
         </form>
       </div>
-    </div>
+   <!-- </div>-->
   </div>
 </div>

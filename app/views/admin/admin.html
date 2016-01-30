@@ -1,0 +1,69 @@
+
+<div class="countainer">
+    <div class="row">
+        <div class="col s12 l12 m12">
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="#!" class="brand-logo">Logo</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a ng-click="events.addNewProfile()" href="javascript:void(0)">Добавить профиль</a></li>
+                        <li><a ng-click="events.addNewBider()" href="javascript:void(0)">Добавить бидера</a></li>
+                        <li><a ng-click="events.form()" href="javascript:void(0)">Форма</a></li>
+                        <li><a ng-click="events.logout()" href="javascript:void(0)">Выйти</a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a ng-click="events.addNewProfile()" href="javascript:void(0)">Добавить профиль</a></li>
+                        <li><a ng-click="events.addNewBider()" href="javascript:void(0)">Добавить бидера</a></li>
+                        <li><a ng-click="events.form()" href="javascript:void(0)">Форма</a></li>
+                        <li><a ng-click="events.logout()" href="javascript:void(0)">Выйти</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <table class="bordered  highlight" >
+                <thead>
+                <tr>
+                    <th data-field="number">№</th>
+                    <th data-field="Date">Дата</th>
+                    <th data-field="bider">Бидер</th>
+                    <th data-field="profile">Профили</th>
+                    <th data-field="colVo">Колво бидов</th>
+                    <th data-field="linkBid">Ссылки на биды/ответ</th>
+                    <th data-field="comments">Комментарий</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in reportsObj" on-finish-render="endRepeat()">
+                    <td>{{$index + 1}}</td>
+                    <td>{{item.dates}}</td>
+                    <td>{{item.nameBider}}</td>
+                    <td>
+                        <div class="chip" ng-repeat="item in item.profiles">
+                            {{item}}
+                        </div>
+                    </td>
+                    <td>{{item.countBild}}</td>
+                    <td>
+                        <div id="modal{{$index + 1}}" class="modal modal-fixed-footer">
+                            <div class="modal-content">
+                                <h4>Ссылки на биды/ответ</h4>
+                                <p>{{item.linkOnBid}}</p>
+                            </div>
+                        </div>
+                        <a class="modal-trigger waves-effect waves-light btn" href="#modal{{$index + 1}}">Смотреть</a>
+                    </td>
+                    <td>
+                        <div id="modal{{$index + 10000}}" class="modal modal-fixed-footer">
+                            <div class="modal-content">
+                                <h4>Комментарий</h4>
+                                <p>{{item.comments}}</p>
+                            </div>
+                        </div>
+                        <a class="modal-trigger waves-effect waves-light btn" href="#modal{{$index + 10000}}">Смотреть</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,9 @@
 angular.module('myApp', [
   'ngRoute',
   'myApp.loginMod',
-  'myApp.formMod'
+  'myApp.formMod',
+  'myApp.admin',
+  'myApp.noAcces'
 ])
     .config(['$routeProvider', function($routeProvider) {
       $routeProvider.otherwise({

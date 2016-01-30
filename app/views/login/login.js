@@ -8,10 +8,11 @@ angular.module('myApp.loginMod', ['ngRoute', 'firebase'])
     controller: 'loginCtr'
   });
 }])
-    .controller('loginCtr', ['$scope','$location','$firebaseAuth', function($scope,$location,$firebaseAuth) {
+    .controller('loginCtr', ['$scope','$location','$firebaseAuth','$firebaseArray','$firebaseObject', function($scope,$location,$firebaseAuth, $firebaseArray, $firebaseObject) {
         var ref = new Firebase("https://reports1.firebaseio.com");
-        var loginObj = $firebaseAuth(ref);
+        //var loginObj = $firebaseAuth(ref);
         var invalAuth = document.getElementById('invalidFormAuth');
+        var usersListO = $firebaseObject(ref);
         $scope.user = {};
         $scope.SignIn = function(e) {
             var username = $scope.user.email;
@@ -21,14 +22,23 @@ angular.module('myApp.loginMod', ['ngRoute', 'firebase'])
                     password : password
                 },
                 function authHandler(error, authData) {
-                    //console.log(authData)
                     if (error) {
                         console.log("Login Failed!", error);
                         invalAuth.innerText =  error;
                     } else {
                         invalAuth.innerText = "Authenticated successfully";
                         $scope.$apply(function() {
-                            $location.path('/form');
+                            var userUid = authData.uid;
+                            usersListO.$loaded()
+                                .then(function() {
+                                    var userAuth = usersListO.users[userUid];
+                                    var userRole = userAuth.role;
+                                    if (userRole === "admin"){
+                                        $location.path('/admin');
+                                    } else if (userRole === "bider") {
+                                        $location.path('/form');
+                                    }
+                                });
                         });
                     }
                 }
