@@ -36,20 +36,34 @@ angular.module('myApp.formMod', ['ngRoute', 'firebase'])
                 /*angular.forEach(usersList, function (usersList) {
                  console.log(usersList.users);
                  });*/
-                var nameBid = usersListO.users[getAuth.uid];
+            var userUid = getAuth.uid;
+            var userAuth = usersListO.users[userUid];
+            var firstElemUser = Object.keys(userAuth);
+                        firstElemUser.push('test');
+                        console.log(firstElemUser[0]);
+                        var userRole = userAuth[firstElemUser[0]].role;
+
+                var nameBid = userAuth[firstElemUser[0]];
+
+                    console.log(nameBid)
                 $scope.profileUser = usersListO.profile;
                 $scope.nameUser = nameBid.name;
+
+                        
+
                 var userRole = nameBid.role;
+
                 if (userRole === 'admin') {
                     $scope.linkForAdmin = '<li><a ng-click="events.form()" href="javascript:void(0)">Админ панель</a></li>';
                 }
             });
         // get time
-        var d = new Date();
-        var hours = d.getHours();
-        var minutes = d.getMinutes();
+
         // send cont from form in firebase
         $scope.AddReprot = function () {
+            var d = new Date();
+            var hours = d.getHours();
+            var minutes = d.getMinutes();
             var addFrom = $firebaseArray(refAddReports);
             var nameBider = $scope.nameUser;
             var dates = hours + ":" + minutes + " || " + $scope.reports1.datePik;
@@ -70,6 +84,7 @@ angular.module('myApp.formMod', ['ngRoute', 'firebase'])
                 comments: comments
             }).then(function (refAddReports) {
                 Materialize.toast('Отчет отправлен, спасибо!',5000, 'rounded');
+                document.getElementById('formAddRepo').reset();
                 console.log(refAddReports);
             }, function (error) {
                 Materialize.toast('Отчет не отправлен!',5000, 'rounded');

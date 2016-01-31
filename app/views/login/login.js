@@ -2,12 +2,12 @@
 
 angular.module('myApp.loginMod', ['ngRoute', 'firebase'])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/login', {
-    templateUrl: 'views/login/login.html',
-    controller: 'loginCtr'
-  });
-}])
+    .config(['$routeProvider', function($routeProvider) {
+        $routeProvider.when('/login', {
+            templateUrl: 'views/login/login.html',
+            controller: 'loginCtr'
+        });
+    }])
     .controller('loginCtr', ['$scope','$location','$firebaseAuth','$firebaseArray','$firebaseObject', function($scope,$location,$firebaseAuth, $firebaseArray, $firebaseObject) {
         var ref = new Firebase("https://reports1.firebaseio.com");
         //var loginObj = $firebaseAuth(ref);
@@ -32,11 +32,18 @@ angular.module('myApp.loginMod', ['ngRoute', 'firebase'])
                             usersListO.$loaded()
                                 .then(function() {
                                     var userAuth = usersListO.users[userUid];
-                                    var userRole = userAuth.role;
+                                    var firstElemUser = Object.keys(userAuth);
+                                    firstElemUser.push('test');
+                                    console.log(firstElemUser[0]);
+                                    var userRole = userAuth[firstElemUser[0]].role;
+                                    console.log(userRole);
+                                    console.log(usersListO);
                                     if (userRole === "admin"){
                                         $location.path('/admin');
                                     } else if (userRole === "bider") {
                                         $location.path('/form');
+                                    } else {
+                                        console.log('no role')
                                     }
                                 });
                         });

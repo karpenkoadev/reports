@@ -9,6 +9,7 @@ angular.module('myApp.admin', ['ngRoute'])
         var ref = new Firebase("https://reports1.firebaseio.com");
         var auth = $firebaseAuth(ref);
         var profileFirbase = ref.child('profile');
+        var usersFirbase = ref.child('users');
         var getAuth = auth.$getAuth();
         if (getAuth === null){
             $location.path('/no_access')
@@ -49,8 +50,16 @@ angular.module('myApp.admin', ['ngRoute'])
             fireObj.$loaded()
                 .then(function() {
                     // check role user
+
                     var userAuth = fireObj.users[userUid];
-                    var userRole = userAuth.role;
+                    var firstElemUser = Object.keys(userAuth);
+                    firstElemUser.push('test');
+                    console.log(firstElemUser[0]);
+                    var userRole = userAuth[firstElemUser[0]].role;
+
+                    //var userRole = userAuth.role;
+
+
                     if (userRole === "admin"){
                         console.log('admin')
                     } else if (userRole === "bider") {
@@ -140,6 +149,43 @@ angular.module('myApp.admin', ['ngRoute'])
                 }, function (error) {
                     Materialize.toast('Профиль не добавлен!',5000, 'rounded');
                     console.log("Error:", error);
+                });
+            };
+            $scope.AddBider = function(){
+                var emailAddProf = $scope.AddBider.emailBid;
+                var nameAddProf =  $scope.AddBider.nameLastName;
+                var passwordAddProf =  $scope.AddBider.passwordBid;
+                ref.createUser({
+                    email: emailAddProf,
+                    password: passwordAddProf
+                }, function(error, userData) {
+                    if (error) {
+                        switch (error.code) {
+                            case "EMAIL_TAKEN":
+                                console.log("The new user account cannot be created because the email is already in use.");
+                                break;
+                            case "INVALID_EMAIL":
+                                console.log("The specified email is not a valid email.");
+                                break;
+                            default:
+                                console.log("Error creating user:", error);
+                        }
+                    } else {
+                        console.log("Successfully created user account with uid:", userData.uid);
+                        var usersFirbaseq = ref.child('users').child(userData.uid);
+                        var addUser = $firebaseArray(usersFirbaseq);
+                        addUser.$add({
+                            name: nameAddProf,
+                            emai: emailAddProf,
+                            role: 'bider'
+                        }).then(function (refAddReports) {
+                            Materialize.toast('Бидер добавлен, спасибо!',5000, 'rounded');
+                            console.log(refAddReports);
+                        }, function (error) {
+                            Materialize.toast('Бидер не добавлен!',5000, 'rounded');
+                            console.log("Error:", error);
+                        });
+                    }
                 });
             };
             $(".button-collapse").sideNav();
