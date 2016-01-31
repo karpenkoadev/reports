@@ -1,80 +1,126 @@
-  <div class="row">
-   <div class="col s12 l12 m12">
-     <nav>
-       <div class="nav-wrapper">
-         <a href="#!" class="brand-logo">Logo</a>
-         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-         <ul class="right hide-on-med-and-down">
-           <li><a ng-click="events.form()" href="javascript:void(0)">Админ панель</a></li>
-           <li><a ng-click="events.logout()" href="javascript:void(0)">Выйти</a></li>
-         </ul>
-         <ul class="side-nav" id="mobile-demo">
-           <li><a ng-click="events.form()" href="javascript:void(0)">Админ панель</a></li>
-           <li><a ng-click="events.logout()" href="javascript:void(0)">Выйти</a></li>
-         </ul>
-       </div>
-     </nav>
-   </div>
-    </div>
+<div class="row">
+  <div class="col s12 l12 m12">
+    <ul id="dropdown1" class="dropdown-content">
+      <li class="divider"></li>
+      <li>
+        <a ng-click="events.changeEmail()" href="javascript:void(0)">Смена почты</a>
+        <a class="modal-trigger" href="#modalChangePassword">Смена пароля</a>
+      </li>
+    </ul>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo">Logo</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a ng-click="events.form()" href="javascript:void(0)">Админ панель</a></li>
+          <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Настройки<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a ng-click="events.logout()" href="javascript:void(0)">Выйти</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a ng-click="events.form()" href="javascript:void(0)">Админ панель</a></li>
+          <!--<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Настройки<i class="material-icons right">arrow_drop_down</i></a></li>-->
+          <li><a ng-click="events.logout()" href="javascript:void(0)">Выйти</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
 
 
-  <div class="container autorizate" >
+<div class="container autorizate" >
   <div class="row">
     <div class="col s12 l12 m12"></div>
     <!--<div class="valign-wrapper">-->
-      <div class="col s12 l12 m12">
-        <div class="logo center-align">
-         <h4>Привет {{nameUser}}, напиши свой дневной отчет.</h4>
-        </div>
-        <form class="form-signin" name="addRepForm" role="form" novalidate ng-submit="AddReprot()">
-          <div class="col s6 l6 m6">
-            <div class="input-field">
-              <i class="material-icons prefix">today</i>
-              <input ng-minlength="1" ng-model="reports1.datePik" id="datePik" name="datePik" type="text" class="datepicker">
-              <label for="datePik">Дата</label>
-            </div>
-          </div>
-          <div class="col s6 l6 m6">
-            <div class="input-field">
-              <i class="material-icons prefix">supervisor_account</i>
-              <input ng-minlength="1" ng-model="reports1.countBild" id="counBid" name="counBid" type="text">
-              <label for="counBid">Количество бидов за день</label>
-            </div>
-          </div>
-          <div class="col s12 l12 m12"><br></div>
-          <div class="col s12 l12 m12">
-            <div class="input-field" >
-              <select multiple  ng-model="reports1.profiles" name="profiles" class="icons">
-                <option  value="" disabled selected>Профили за которые писал</option>
-                <option  value="Alexandr Serdiuk" data-icon="img/alexSer.jpg" class="left circle">Alexandr Serdiuk</option>
-                <option  value="Oleksandr Karpenko" data-icon="img/alexKarpen.jpg" class="left circle">Oleksandr Karpenko</option>
-                <option  value="Tim Maloshtan" data-icon="img/timMalo.jpg" class="left circle">Tim Maloshtan</option>
-                <option  value="Danil Tivonenko" data-icon="img/danilTiv.jpg" class="left circle">Danil Tivonenko</option>
-              </select>
-              <label>Профили за которые писал</label>
-            </div>
-          </div>
-          <div class="col s12 l12 m12"><br></div>
-          <div class="col s12 l12 m12">
-            <div class="input-field" >
-              <i class="material-icons prefix">mode_edit</i>
-              <textarea ng-minlength="1" ng-model="reports1.linkOnBid" name="linkOnBid" id="icon_prefix2" class="materialize-textarea"></textarea>
-              <label for="icon_prefix2">Ссылки на биды и на ответы если они были</label>
-            </div>
-          </div>
-          <div class="col s12 l12 m12"><br></div>
-          <div class="col s12 l12 m12">
-            <div class="input-field" >
-              <i class="material-icons prefix">mode_edit</i>
-              <textarea ng-minlength="1" name="comments" ng-model="reports1.comments" id="icon_prefix3" class="materialize-textarea form-control"></textarea>
-              <label for="icon_prefix2">Ваш комментарий</label>
-            </div>
-          </div>
-          <p style='float:left' class="invalidFormAuth " >Все поля объязательны</p>
-          <p style='float:left' id="invalidFormAuth" class="invalidFormAuth"></p>
-          <button class="right autorizationButton waves-effect waves-light btn-large" ng-disabled="!reports1.datePik || !reports1.countBild || !reports1.profiles || !reports1.linkOnBid || !reports1.comments"><i class="material-icons left">input</i>button</button>
-        </form>
+    <div class="col s12 l12 m12">
+      <div class="logo center-align">
+        <h5>Привет {{nameUser}}, напиши свой отчет за один бид.</h5>
       </div>
-   <!-- </div>-->
+      <div class="col s12 l12 m12"><br></div>
+      <form class="form-signin" name="addRepForm" role="form" novalidate ng-submit="AddReprot()">
+        <div class="col s6 l6 m6">
+          <div class="input-field">
+            <i class="material-icons prefix">today</i>
+            <input ng-minlength="1" ng-model="reports1.datePik" id="datePik" name="datePik" type="text" class="datepicker">
+            <label for="datePik">Дата</label>
+          </div>
+        </div>
+        <div class="col s6 l6 m6">
+          <div class="input-field" >
+            <select ng-minlength="1" ng-model="reports1.profiles" name="profiles" class="icons">
+              <option  value="" disabled selected>Профили с которого был бид</option>
+              <option ng-repeat="item in profileUser" on-finish-render="endRepeat()"  value="{{item.name}}" data-icon="{{item.img}}" class="left circle">{{item.name}}</option>
+            </select>
+            <label>Профили за которые писал</label>
+          </div>
+        </div>
+        <div class="col s12 l12 m12">
+          <div class="input-field">
+            <i class="material-icons prefix">supervisor_account</i>
+            <input ng-minlength="1" ng-model="reports1.countBild" id="counBid" name="counBid" type="text" >
+            <label for="counBid">Ccылка на бид</label>
+          </div>
+        <!--</div>-->
+    </div>
+    <div class="col s12 l12 m12"><br></div>
+    <div class="col s9 l9 m9">
+      <div class="input-field" >
+        <i class="material-icons prefix">mode_edit</i>
+        <textarea ng-minlength="1" ng-model="reports1.linkOnBid" name="linkOnBid" id="icon_prefix2" class="materialize-textarea"></textarea>
+        <label for="icon_prefix2">Текст бида</label>
+      </div>
+    </div>
+    <div class="col s3 l3 m3">
+      <div class="input-field" >
+        <label for="otevS">Был ли ответ?</label>
+        <br>
+        <div class="switch">
+          <label style="margin-top: 30px;">
+            Нет
+            <input type="checkbox" id="otevS"  ng-model="reports1.comments"  name="comments">
+            <span class="lever"></span>
+            Да
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 l12 m12"><br></div>
+    <p style='float:left' class="invalidFormAuth " >Все поля объязательны</p>
+    <p style='float:left' id="invalidFormAuth" class="invalidFormAuth"></p>
+    <button ng-disabled="!reports1.datePik || !reports1.profiles || !reports1.countBild || !reports1.linkOnBid" class="right autorizationButton waves-effect waves-light btn-large" >
+      <i class="material-icons left">input</i>button
+    </button>
+    </form>
+  </div>
+  <!-- </div>-->
+</div>
+</div>
+<div id="modalChangePassword" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>Смена пароля</h4>
+    <br>
+    <div class="row">
+      <form class="col s12" name="changePassword()" role="form" novalidate ng-submit="changePassword()">
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock</i>
+            <input id="icon_prefix" type="password" class="validate" ng-model="changePassword.oldPassword" ng-minlength="1" name="oldPassword">
+            <label for="icon_prefix">Старый пароль</label>
+          </div>
+          <div class="input-field col s12"><br></div>
+
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock</i>
+            <input id="icon_telephone" type="password" class="validate" ng-model="changePassword.newPassword"  ng-minlength="1" name="newPassword">
+            <label for="icon_telephone">Новый пароль</label>
+          </div>
+          <div class="input-field col s12">
+            <p style='float:left' class="invalidFormAuth " >{{changePasswordAlert}}</p>
+            <button ng-disabled="!changePassword.oldPassword || !changePassword.newPassword" class="right autorizationButton waves-effect waves-light btn-large" >
+              <i class="material-icons left">input</i>подтвердить
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

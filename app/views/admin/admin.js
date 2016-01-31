@@ -5,13 +5,25 @@ angular.module('myApp.admin', ['ngRoute'])
         controller:'adminCtr'
     })
 }])
-    .controller('adminCtr', ['$scope', '$location', '$firebaseArray', '$firebaseAuth', '$firebaseObject', function($scope, $location, $firebaseArray, $firebaseAuth, $firebaseObject){
+    .controller('adminCtr', ['$scope', '$location', '$firebaseArray', '$firebaseAuth', '$firebaseObject','$http', function($scope, $location, $firebaseArray, $firebaseAuth, $firebaseObject, $http){
         var ref = new Firebase("https://reports1.firebaseio.com");
         var auth = $firebaseAuth(ref);
+        var profileFirbase = ref.child('profile');
         var getAuth = auth.$getAuth();
         if (getAuth === null){
             $location.path('/no_access')
         } else {
+            var funcRepeat = false;
+            $scope.endRepeatAdmin = function() {
+                if (funcRepeat == false){
+                    funcRepeat = true;
+                    console.log(1111);
+                    $('.modal-trigger').leanModal();
+                    $(".dropdown-button").dropdown();
+                    // $('ul.tabs').tabs('select_tab', 'myself');
+                    $('ul.tabs').tabs();
+                }
+            };
             var userUid = getAuth.uid;
             var fireObj = $firebaseObject(ref);
             //menu
@@ -20,6 +32,9 @@ angular.module('myApp.admin', ['ngRoute'])
                     Materialize.toast('На этапе разработки',3000, 'rounded')
                 },
                 addNewBider : function(){
+                    Materialize.toast('На этапе разработки',3000, 'rounded')
+                },
+                changeEmail : function(){
                     Materialize.toast('На этапе разработки',3000, 'rounded')
                 },
                 form : function(){
@@ -49,16 +64,83 @@ angular.module('myApp.admin', ['ngRoute'])
                     $scope.reportsObj = reportsObj;
                     $scope.modal = 'id="modal';
                     angular.forEach(reportsObj, function (reportsObj) {
-                        console.log(reportsObj);
+                       // console.log(reportsObj);
                         $scope.reportsObjDates = reportsObj.dates;
 
                     });
                     //$scope.reportsObj = fireObj.reports;
-
-                    //console.log($scope.reportsObj)
+                    //console.log($scope.reportsObj);
                 });
-            $scope.endRepeat = function() {
-                setTimeout($('.modal-trigger').leanModal(),1000)
+
+            // Change password myself
+            $scope.changePasswordAlert = 'Заполни все поля';
+            $scope.changePassword = function(){
+                var userEmail = getAuth.password.email;
+                ref.changePassword({
+                    email: userEmail,
+                    oldPassword: $scope.changePassword.oldPassword,
+                    newPassword: $scope.changePassword.newPassword
+                }, function(error) {
+                    if (error) {
+                        switch (error.code) {
+                            case "INVALID_PASSWORD":
+                                console.log('The specified user account password is incorrect.');
+                                Materialize.toast('Данные не верны!',5000, 'rounded');
+                                break;
+                            case "INVALID_USER":
+                                console.log('The specified user account does not exist.');
+                                break;
+                            default:
+                                console.log('Error changing password: ' +  error);
+                        }
+                    } else {
+                        Materialize.toast('Пароль изменен, спасибо!',5000, 'rounded');
+                    }
+                });
+            };
+            //change password user
+            $scope.changePasswordBider = function(){
+                var userEmail = getAuth.password.email;
+                ref.changePassword({
+                    email: $scope.changePassword.email,
+                    oldPassword: $scope.changePassword.oldPassword,
+                    newPassword: $scope.changePassword.newPassword
+                }, function(error) {
+                    if (error) {
+                        switch (error.code) {
+                            case "INVALID_PASSWORD":
+                                console.log('The specified user account password is incorrect.');
+                                Materialize.toast('Данные не верны!',5000, 'rounded');
+                                break;
+                            case "INVALID_USER":
+                                console.log('The specified user account does not exist.');
+                                Materialize.toast('Пользователь не найден',5000, 'rounded');
+                                break;
+                            default:
+                                console.log('Error changing password: ' +  error);
+                        }
+                    } else {
+                        Materialize.toast('Пароль изменен, спасибо!',5000, 'rounded');
+                    }
+                });
+            };
+
+            // add new profile
+            //change password user
+            $scope.addNewProfile = function(){
+                var addProfile = $firebaseArray(profileFirbase);
+                var profilePhoto =  $scope.addProfile.profilePhoto;
+                var profileName =  $scope.addProfile.name;
+                addProfile.$add({
+                    name: profileName,
+                    img: profilePhoto
+                }).then(function (refAddReports) {
+                    Materialize.toast('Профиль добавлен, спасибо!',5000, 'rounded');
+                    console.log(refAddReports);
+                }, function (error) {
+                    Materialize.toast('Профиль не добавлен!',5000, 'rounded');
+                    console.log("Error:", error);
+                });
             };
             $(".button-collapse").sideNav();
 
